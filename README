@@ -1,0 +1,9 @@
+main.c :
+    runs the shell in process.
+tilda.c:
+    converts absolute address to new address with new home(where main is located).
+my_utilities.c:
+    stores necessary functions, common to all.
+fore.c :
+    Takes care of requirement 4 and 6. Deals with foreground and background processes.
+
