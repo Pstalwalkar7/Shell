@@ -5,6 +5,8 @@ int unhidden(const struct dirent *entry){
 }
 void ls(char cmd[]){
     int n;
+    cmd=strtok(cmd,"|");
+    // printf("\nCMD:|||||%s||||||\n",cmd);
     int flag[3]={0,0,0};
     struct dirent ** list;
     struct direct * parse;

@@ -1,8 +1,11 @@
-#define LIST_MAX 2000
+#include"fore.h"
+
+// #define LIST_MAX 2000
 char temp[MAX];
 char* word;
 pid_t pid;
-void foreground(char *cmd){
+void foreground(char *cmd)
+{
     char *S[LIST_MAX];
     int status;
     word=strtok(cmd," ");
@@ -11,17 +14,22 @@ void foreground(char *cmd){
         S[i++]=word;
         word=strtok(NULL," ");
     }
-    S[i++]="\0";
+    S[i++]=NULL;
+    
     pid=fork();
-    // int status;
-    if(pid<0){
+    if(pid<0)
+    {
         printf("Fork error!\n");
     }
-    else if(pid>0){   // parent.
+    else if(pid>0)
+    { 
         waitpid(pid,&status,0);
     }
-    else{    // child.
+    else
+    {    // child.
         execvp(S[0],S);
+        printf("ERROR! Unable to run the command!\n");
+        exit(1);
     }
 }
 void sigchld_handler(int sig){
@@ -32,7 +40,7 @@ void sigchld_handler(int sig){
     }
 }
 void background(char * cmd){
-    // printf("FFF\n");
+    // pid cmd flag. 
     char *S[LIST_MAX];
     int status;
     word=strtok(cmd," ");
@@ -42,18 +50,33 @@ void background(char * cmd){
         S[i++]=word;
         word=strtok(NULL," ");
     }
-    S[i++]="\0";
-    // pid_t pid;
+    S[i++]=NULL;
     pid=fork();
     if(pid<0){
         printf("Fork error!\n");
     }
     else if(pid>0){
+        // printf("exist");
+        Jobs[Job_pos].PID=pid;
+        strcpy(Jobs[Job_pos++].S,cmd);           
         ;
     }
     else if(!pid && execvp(S[0],S)<0){
-        // printf("works");
         execvp(S[0],S);
-        perror("Error!Unable to run the command.\n");
+        printf("Error!Unable to run the command.\n");
+        exit(1);
     }
+    else if(!pid){
+        // printf("DONE\n");
+        if(execvp(S[0],S)<0){
+            execvp(S[0],S);
+            printf("Error!Unable to run the command.\n");
+            exit(1);
+        }
+        // else{
+        //     Jobs[Job_pos].PID=pid;
+        //     strcpy(Jobs[Job_pos++].S,cmd);           
+        // }
+    }
+    // printf("///%d///",Job_pos);
 }

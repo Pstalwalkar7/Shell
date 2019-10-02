@@ -4,3 +4,4 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include<wait.h>
+// #include "global.h"

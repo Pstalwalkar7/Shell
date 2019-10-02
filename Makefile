@@ -1,2 +1,2 @@
 all: $(wildcard *.c)  $(wildcard *.h)
-	gcc main.c
+	gcc -g MAIN.c

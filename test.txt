@@ -1,6 +1,4 @@
 void echo(char cmd[]){
-    // printf("\n||%s||\n",cmd);
-    cmd=strtok(cmd,"|><");
     char Print[MAX];
     int pos=0;
     int quotes[2]={0,0};    // DOES not contain actual number of "" or '' . Used for even odd. odd within even cases also. CONTAINS " & ' outside each of other.
@@ -47,4 +45,13 @@ void echo(char cmd[]){
             printf("%s\n",Print);
         }
     }
-}
+}#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<errno.h>
+#include<unistd.h>
+#include<string.h>
+#include <sys/utsname.h>
+#include<signal.h>
+#define MAX 1001
+#define SHELL_ADDR "/home/pstalwalkar7/2-1/OperatingSystems/Shell/1"

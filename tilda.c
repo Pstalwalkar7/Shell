@@ -4,7 +4,6 @@ void Tilda_or_not(){
         return 1;
     }
     else{
-        // printf("%s\n",dir);
         int i;
         int match=1;
         char curr[]=".";
@@ -15,7 +14,6 @@ void Tilda_or_not(){
                 break;
             }
         }
-        // printf("path::%s\n",path);
         if(path==NULL){    // unable to find curr , i.e "./main.c"
             printf("Error! Main file has been misplaced -- configuration disturbed !\n");
         }

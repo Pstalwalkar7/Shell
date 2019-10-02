@@ -22,7 +22,10 @@
 #include "fore.h"
 #define MAX 1001
 #define LIST_MAX 2000
+#include "userdef1.c"
+
 #define SHELL_ADDR "/home/pstalwalkar7/2-1/OperatingSystems/Shell/1"
+
 int main(){
     char user[MAX];
     char input[MAX];
@@ -54,6 +57,7 @@ int main(){
                 fgets(input,MAX,stdin);
                 int valid_echo,valid_cd,valid_ls,valid_pinfo;
                 char * cmd = strtok(input,";");      // returns 1st group of characters constituting a command.  The next delimiter found is conseidered as start of the next token.
+                
                 while(cmd!=NULL){                       // no more tokens are found. so end.
                     cmd=rem_leading_spaces(cmd);
                     valid_cd=(strlen(cmd)>=3 && cmd[0]=='c' && cmd[1]=='d' && (cmd[2]==' ' || cmd[2]=='\n') )||(strlen(cmd)==2 && cmd[0]=='c' && cmd[1]=='d');
@@ -129,11 +133,6 @@ int main(){
                         }
                         pinfo(cmd);
                     }
-                    // else if((strlen(cmd)==4 && cmd[0]=='e' && cmd[1]=='x' && cmd[2]=='i' && cmd[3]=='t') || strlen(cmd)>=5 && cmd[0]=='e' && cmd[1]=='x' && cmd[2]=='i' && cmd[3]=='t' 
-                    // && (cmd[4]=='\n' || cmd[4]==' ')){
-                    //     printf("Shell is exiting! Goodbye!\n");
-                    //     return 0;
-                    // }
                     else{
                         for(int i=0;i<MAX;i++){
                             if(cmd[i]=='\n'){
@@ -146,69 +145,16 @@ int main(){
                             for(int i=0;cmd[i];i++){
                                 if(cmd[i]=='&'){
                                     fg=0;
+                                    cmd[i]=' ';
                                 }
                             }
                             if(fg){
-                                // printf("SSS\n");
                                 foreground(cmd);
                             }
                             else{
-                                // printf("GGG\n");
                                 background(cmd);
-                                // int status;
-                                // char *S[LIST_MAX];
-                                // char *WORD=strtok(cmd," ");
-                                // int position_1=0;
-                                // while(WORD!=NULL){
-                                //     S[position_1++]=WORD;
-                                //     WORD=strtok(NULL," ");
-                                // }    
-                                // S[position_1++]="\0";
-                                // pid_t pid2=fork();
-                                // if(pid2<0){
-                                //     printf("Unable to fork");
-                                // }
-                                // else if( !pid2 && execvp(S[0],S)<0){
-                                //     perror("Error!Unable to run the command.\n");
-                                // }
-                                // else{
-                                //     waitpid(pid2,&status,0);
-                                //     if(!status){
-                                //         printf("\n%s with pid %d exited\n",WORD,pid2);
-                                //     }
-                                // }
                             }
                         }
-
-                        // int status;
-                        // char *S[LIST_MAX];
-                        // pid_t pid1=fork();
-                        // char *WORD=strtok(cmd," ");
-                        // int position_1=0;
-                        // while(WORD!=NULL){
-                        //     S[position_1++]=WORD;
-                        //     WORD=strtok(NULL," ");
-                        // }    
-                        // S[position_1++]="\0";
-                        // if(pid1<0){
-                        //     printf("Unable to fork");
-                        // }
-                        // else if(pid1==0){
-                        //     pid_t pid2=fork();
-                        //     if(pid2<0){
-                        //         printf("Unable to fork");
-                        //     }
-                        //     else if( !pid2 && execvp(S[0],S)<0){
-                        //         perror("Error!Unable to run the command.\n");
-                        //     }
-                        //     else{
-                        //         waitpid(pid2,&status,0);
-                        //         if(!status){
-                        //             printf("\n%s with pid %d exited\n",WORD,pid2);
-                        //         }
-                        //     }
-                        // }
-                        
                     }
                     cmd=strtok(NULL,";");          // says, that continue with the previous input strtok-ed for further searching
                 }

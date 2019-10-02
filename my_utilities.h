@@ -6,5 +6,6 @@
 #include<string.h>
 #include <sys/utsname.h>
 #include<signal.h>
+// #include"global.h"
 #define MAX 1001
 #define SHELL_ADDR "/home/pstalwalkar7/2-1/OperatingSystems/Shell/1"

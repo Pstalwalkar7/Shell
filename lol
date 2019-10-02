@@ -1,0 +1,1 @@
+#&#   1221A.cpp   FILE.txt   MAIN.c   Makefile   NEW   README   TEST.txt   a.out   cd.c   cd.h   echo.c   echo.h   exec_cmd.c   exec_cmd.h   file.txt   fore.c   fore.h   ga   global.h   lol   ls.c   ls.h   main.c   my_utilities.c   my_utilities.h   pinfo.c   pinfo.h   pwd.c   pwd.h   redir.c   redir.h   test.txt   tilda.c   tilda.h   userdef1.c   userdef1.h   

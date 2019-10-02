@@ -4,7 +4,6 @@ char* pwd(){
         return "\0";
     }
     else{
-        // printf("%s\n",dir);
         return dir;
     }
 }

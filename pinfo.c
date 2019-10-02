@@ -2,7 +2,6 @@ int str_to_int(char S[]){
     int num=0;
     for(int i=0;S[i];i++){
         num=num*10 + S[i] -'0';
-        // printf("num:%d:::%d\n",i,num);
     }
     return num;
 }
@@ -28,32 +27,37 @@ char *  int_to_str(int n){
 int pinfo(char * cmd_tok){
     pid_t proc_id;
     char state;
-    char* word=strtok(cmd_tok," ");
-    // printf("word:%s\n",word);
+    // char* word=strtok(cmd_tok," ");
+    char * word=cmd_tok;
     proc_id=(word==NULL) ? getpid() : str_to_int(word);
     char path_status[MAX];
     char path_statm[MAX];
     char buf[MAX];
     char path_exec[MAX];
+    char SOL[MAX];
     printf("pid -- %d\n",proc_id);
     char c;
     int len=0;
-    // strcat(path_status,int_to_str(proc_id));
-    // strcat(path_status,"status");
     sprintf(path_status, "/proc/%d/status", proc_id);
     FILE * fp=fopen(path_status,"r");
     if(fp){
         fgets(buf,256,fp);
         fgets(buf,256,fp);       // go ahead, by 2 lines.
+        fgets(buf,256,fp);
+        state=buf[8];
         sscanf(buf,"State:\t%c",&state);        // from buf, read in the format givn as arg2, and store the reqd %c in &state.
-        printf("Process Status -- %c\n",state);
+        if(state=='S'){
+            strcpy(SOL,"Stopped");
+        }
+        else{
+            strcpy(SOL,"Running");
+        }
+        printf("Process Status -- %s\n",SOL);
         fclose(fp);
     }
     else{
         printf("Error while opening system maintained file: status\n");
     }
-    // strcat(path_statm,int_to_str(proc_id));
-    // strcat(path_statm,"statm");
     sprintf(path_statm,"/proc/%d/statm",proc_id);
     fp = fopen(path_statm, "r");
     if(fp) {
@@ -69,9 +73,7 @@ int pinfo(char * cmd_tok){
     else{
         printf("Error while opening system maintained file: statm\n");
     }
-    // strcat(path_exec,int_to_str(proc_id));
     len=-1;
-    // strcat(path_exec,"exe");
     sprintf(path_exec,"/proc/%d/exe",proc_id);
     len=readlink(path_exec,buf,MAX-1);
     if(len!=-1){
