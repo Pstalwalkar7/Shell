@@ -9,6 +9,7 @@ void foreground(char *cmd)
     char *S[LIST_MAX];
     int status;
     word=strtok(cmd," ");
+    strcpy(FORE.S,word);
     int i=0;
     while(word!=NULL){
         S[i++]=word;
@@ -17,13 +18,19 @@ void foreground(char *cmd)
     S[i++]=NULL;
     
     pid=fork();
+    FORE.PID=pid;
     if(pid<0)
     {
         printf("Fork error!\n");
     }
     else if(pid>0)
     { 
-        waitpid(pid,&status,0);
+        // waitpid(pid,&status,0);
+        // do{
+        waitpid(pid,&status,WUNTRACED);
+        // }while(!WIFSIGNALED(status) && !WIFSTOPPED(status));
+        // wait (NULL);
+        printf("watover  \n");
     }
     else
     {    // child.

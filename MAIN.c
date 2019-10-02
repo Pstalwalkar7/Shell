@@ -31,8 +31,26 @@
 
 #define SHELL_ADDR "/home/pstalwalkar7/2-1/OperatingSystems/Shell/1"
 
+pid_t Global_Pid;
+
+void ctrlC_handler(int sig_num){
+    signal(SIGINT,ctrlC_handler);
+}
+
+void ctrlZ_handler(int sig_num){
+    if(getpid()!=Global_Pid){
+        return;
+    }  
+    printf("runpid: %d\nProcess:%s\n",FORE.PID,FORE.S);
+
+    kill(FORE.PID,SIGSTOP);
+    signal(SIGTSTP,ctrlZ_handler);
+}
 int main()
 {
+    Global_Pid=getpid();
+    signal(SIGTSTP,ctrlZ_handler);
+    signal(SIGINT,ctrlC_handler);
     char user[MAX];
     char input[MAX];
     char dir[MAX];

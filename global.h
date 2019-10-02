@@ -14,6 +14,7 @@ struct job_sp{
     char S[MAX];
 }job_sp;
 struct job_sp Jobs[MAX];
+struct job_sp FORE;
 int Job_pos=0;
 int restore_in;
 int restore_out;

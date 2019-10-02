@@ -1,6 +1,15 @@
 #include "exec_cmd.h"
-// #include <readline/readline.h>
-// #include <readline/history.h>
+#include<time.h>
+// clock_t start=clock();
+// void cronjob(char * cmd, int timer, int period){
+//     clock_t time_now;
+//     while(1){
+//         time_now=clock()-start;
+//         if(time_now==timer ||(time_now - timer)%period == 0){
+//             exec_cmd(cmd);
+//         }
+//     }
+// }
 void exec_cmd(char * cmd){
     // printf("\n-------------------exec_CMD execution----------------\n");
     // printf("||||%s||||",cmd);
@@ -21,6 +30,7 @@ void exec_cmd(char * cmd){
     int valid_fg=!(strcmp(det,"fg")*strcmp(det,"fg\n"));
     int valid_bg=!(strcmp(det,"bg")*strcmp(det,"bg\n"));
     int valid_overkill=!(strcmp(det,"overkill")*strcmp(det,"overkill\n"));
+    int valid_cronjob= !(strcmp(det,"cronjob")*strcmp(det,"cronjob\n"));
 
     if(valid_pwd){
         char * WorkingDir=malloc(MAX*sizeof(char));
@@ -146,7 +156,7 @@ void exec_cmd(char * cmd){
                 printf("INVALID JOBID PASSED.\n");
             }    // ERROR HANDLING
             else{
-
+                // REMAINING ??
             }
         }
     }
@@ -175,6 +185,31 @@ void exec_cmd(char * cmd){
         // printf("|Happend|");
         exit(0);
     }
+    // else if(valid_cronjob){
+    //     char * CMD=malloc(sizeof(char)* MAX);
+    //     int timer;int period;
+    //     if(!WORDS[6]){
+    //         printf("Incorrect number of parameters passed.");
+    //     }
+    //     else{
+    //         for(int it=1;WORDS[it];it++){
+    //             if(strcmp(WORDS[it],"-c")==0){
+    //                 CMD=WORDS[it+1];
+    //             }
+    //             else if(strcmp(WORDS[it],"-t")==0){
+    //                 timer=atoi(WORDS[it+1]);
+    //             }
+    //             else if(strcmp(WORDS[it],"-p")==0){
+    //                 period=atoi(WORDS[it+1]);
+    //             }
+    //             else{
+    //                 printf("STRANGE PARSING ERROR HAS OCCURED.\n");
+    //             }
+    //         }
+    //         printf("%s\n%d\n%d\n",CMD,timer,period);
+    //         cronjob(CMD,timer,period);
+    //     }
+    // }
     else{
         char * DIR=malloc(sizeof(MAX));
         DIR=Savior_convert(WORDS,0,0);
